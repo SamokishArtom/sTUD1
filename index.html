@@ -1,0 +1,116 @@
+<Html>
+<title> Web V.2 </title> 
+
+<Head>
+
+<Link REL="Stylesheet" HREF="Css/style.css"/>  <!-- ссылка на внешний файл-->
+<Link REL="Stylesheet" HREF="Css/leaflet.css"/>
+
+<script src="js/leaflet.js"></script>
+<script src="js/QGisO.js"></script>
+
+</Head>
+
+<Body>
+
+<div id="mapid"></div>
+
+
+
+<p>
+Good Day
+</p>
+
+<DIV></Div>
+
+<DIV Class="block1">
+<b> fsdfsfdfsdkjd  48 12 23 42 </b>
+</Div>
+
+<Div ID="Block2"> <z> dfjdkfkfkfkvkvlsl</z>
+</Div>
+-->
+<!--Комментарий -->
+
+<script src="js/L.Control.MousePosition.js"></script>
+
+<script>
+
+	var mymap = L.map('mapid').setView([55.011, 82.911], 12);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		id: 'mapbox.streets'
+		
+			}).addTo(mymap);
+
+			/* 
+			var marker = L.marker([55.011, 82.910]).addTo(mymap); 
+			*/
+			
+			var polygon = L.polygon([
+			[54.987,82.854],
+			[54.988,82.862],
+			[54.987,82.874],
+			[54.987,82.874]
+			]).addTo(mymap);
+			
+			polygon.setStyle({fillColor:"#2311ff"});
+			polygon.bindPopup("I am a polygon.");
+			
+			var greenIcon = L.icon({
+    iconUrl: 'leaf-green.png',
+    /* shadowUrl: 'leaf-shadow.png',*/
+
+    iconSize:     [38, 95], // size of the icon
+    /* shadowSize:   [50, 64], // size of the shadow */
+    iconAnchor:   [22, 94]  /*,*/ 
+	// point of the icon which will correspond to marker's location
+
+    /* shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	*/
+});
+						
+			var marker=L.marker([54.987,82.874], {icon: greenIcon}).addTo(mymap);
+			
+			var geojsonFeature = {
+    "type": "Feature",
+    "properties": {
+        "name": "Coors Field",
+        "amenity": "Baseball Stadium",
+        "popupContent": "This is where the Rockies play!"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-104.99404, 39.75621]
+    }
+};
+
+
+		
+ /* L.geoJson(mapdata).addTo(mymap); */
+
+L.geoJSON(mapdata, {
+onEachFeature: function (feature, layer) {
+layer.bindPopup('<h1>'+feature.properties.Lable+'</h1>'+'<img src="'+feature.properties.imgURL+ '"width="25" height="25">');
+}
+}).addTo(mymap); 
+
+/*
+L.geoJSON(mapdata, {
+  onEachFeature: function (feature, layer) {
+    layer.bindPopup('<h1>'+feature.properties.labels+'</h1>'+'<img src="'+feature.properties.imgurl+'">');
+  }
+}).addTo(mymap);
+*/
+
+L.Control.MousePosition().addTo(mymap);
+</script>
+
+</Body>
+
+</Html>
